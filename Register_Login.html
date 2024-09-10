@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea un nuovo account</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="295762038870-ut81rmgrh1akt460r405m36krcv3j1lv.apps.googleusercontent.com">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .pagina-contenitore {
+            width: 300px;
+            text-align: center;
+            background-color: #222222;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .gruppo-pulsanti-superiore {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .pulsante-navigazione {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .pulsante-scuro {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .pulsante-chiaro {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .simbolo-marchio {
+            margin-bottom: 30px;
+        }
+        .simbolo-marchio img {
+            width: 80%; /* Ridimensiona l'immagine all'80% della larghezza del contenitore */
+            height: auto; /* Mantiene le proporzioni dell'immagine */
+            max-width: 100px; /* Imposta una larghezza massima se necessario */
+        }
+        .titolo-principale {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        .campo-inserimento, .pulsante-registrazione, .pulsante-social {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .campo-inserimento {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .pulsante-registrazione {
+            background-color: #ffffff;
+            color: #000000;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .pulsante-registrazione:hover {
+            background-color: #e0e0e0;
+        }
+        .separatore-opzioni {
+            margin: 20px 0;
+            position: relative;
+        }
+        .separatore-opzioni::before, .separatore-opzioni::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #555555;
+        }
+        .separatore-opzioni::before {
+            left: 0;
+        }
+        .separatore-opzioni::after {
+            right: 0;
+        }
+        .pulsante-social {
+            background-color: #333333;
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .pulsante-social:hover {
+            background-color: #444444;
+        }
+        .icona-social {
+            margin-right: 10px;
+            width: 39px;
+            height: 39px;
+            object-fit: contain;
+        }
+        .piè-di-pagina {
+            font-size: 14px;
+            margin-top: 30px;
+        }
+        .link-piè-di-pagina {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .link-piè-di-pagina:hover {
+            color: #cccccc;
+        }
+        .nascosto {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="pagina-contenitore">
+        <div class="gruppo-pulsanti-superiore">
+            <button id="pulsante-login" class="pulsante-navigazione pulsante-scuro">Accedi</button>
+            <button id="pulsante-registrazione" class="pulsante-navigazione pulsante-chiaro">Registrati</button>
+        </div>
+        <div class="simbolo-marchio">
+            <img src="Logo_AI_1.png" alt="Logo AI">
+        </div>
+        <h1 id="titolo-principale" class="titolo-principale">Crea un nuovo account</h1>
+        <form id="modulo-autenticazione" class="modulo-registrazione">
+            <input type="email" class="campo-inserimento" placeholder="Email" required>
+            <input type="password" class="campo-inserimento" placeholder="Password" required>
+            <button type="submit" id="pulsante-azione" class="pulsante-registrazione">Registrati con Email</button>
+        </form>
+        <div class="separatore-opzioni">OPPURE</div>
+        <button class="pulsante-social">
+            <img src="icona_Google_nero.jpeg" alt="Logo Google" width="39" height="39" class="icona-social">
+            Continua con Google
+        </button>
+        <div id="g_id_onload"
+             data-client_id="295762038870-ut81rmgrh1akt460r405m36krcv3j1lv.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+        <button onclick="signOut()" class="pulsante-registrazione">Sign out</button>
+        <div class="piè-di-pagina">
+            <a href="#" class="link-piè-di-pagina">Termini di Servizio</a> | <a href="#" class="link-piè-di-pagina">Informativa sulla Privacy</a>
+            <div style="margin-top: 10px;">
+                <a href="#" id="link-password-dimenticata" class="link-piè-di-pagina">Password dimenticata?</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pulsanteLogin = document.getElementById('pulsante-login');
+        const pulsanteRegistrazione = document.getElementById('pulsante-registrazione');
+        const titoloPrincipale = document.getElementById('titolo-principale');
+        const pulsanteAzione = document.getElementById('pulsante-azione');
+        const linkPasswordDimenticata = document.getElementById('link-password-dimenticata');
+
+        function mostraLogin() {
+            titoloPrincipale.textContent = 'Bentornato';
+            pulsanteAzione.textContent = 'Fai Login con la tua Email';
+            pulsanteLogin.classList.remove('pulsante-scuro');
+            pulsanteLogin.classList.add('pulsante-chiaro');
+            pulsanteRegistrazione.classList.remove('pulsante-chiaro');
+            pulsanteRegistrazione.classList.add('pulsante-scuro');
+            linkPasswordDimenticata.classList.remove('nascosto');
+        }
+
+        function mostraRegistrazione() {
+            titoloPrincipale.textContent = 'Crea un nuovo account';
+            pulsanteAzione.textContent = 'Registrati con Email';
+            pulsanteRegistrazione.classList.remove('pulsante-scuro');
+            pulsanteRegistrazione.classList.add('pulsante-chiaro');
+            pulsanteLogin.classList.remove('pulsante-chiaro');
+            pulsanteLogin.classList.add('pulsante-scuro');
+            linkPasswordDimenticata.classList.add('nascosto');
+        }
+
+        pulsanteLogin.addEventListener('click', mostraLogin);
+        pulsanteRegistrazione.addEventListener('click', mostraRegistrazione);
+
+        // Nascondi il link "Password dimenticata?" all'inizio
+        linkPasswordDimenticata.classList.add('nascosto');
+
+        const form = document.getElementById('modulo-autenticazione');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = form.querySelector('input[type="email"]').value;
+            const password = form.querySelector('input[type="password"]').value;
+            const isLogin = titoloPrincipale.textContent === 'Bentornato';
+
+            // URL aggiornato del server Flask
+            const baseUrl = 'https://pacestefano.github.io/Register_Login';
+            const endpoint = isLogin ? `${baseUrl}/login` : `${baseUrl}/register`;
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                alert(data.message);
+                // Qui puoi aggiungere la logica per reindirizzare l'utente o aggiornare l'interfaccia
+            } catch (error) {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante la richiesta: ' + error.message);
+            }
+        });
+
+        // Aggiungi questa funzione per gestire il sign-in di Google
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Non inviare questo valore al tuo server!
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+
+            // Ottieni il token ID
+            var id_token = googleUser.getAuthResponse().id_token;
+
+            // Invia il token al tuo server
+            verifyTokenWithServer(id_token);
+        }
+
+        function verifyTokenWithServer(token) {
+            fetch('https://pacestefano.github.io/Register_Login/verify_token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: token }),
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+                // Qui puoi gestire la risposta del server, ad esempio aggiornando l'UI
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+                // Qui puoi aggiungere codice per aggiornare l'UI dopo il logout
+            });
+        }
+
+        // Modifica la funzione init
+        function initGoogleSignIn() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: '295762038870-ut81rmgrh1akt460r405m36krcv3j1lv.apps.googleusercontent.com'
+                }).then(function(auth2) {
+                    console.log('Google Sign-In initialized successfully');
+                    // Qui puoi aggiungere ulteriori azioni dopo l'inizializzazione
+                }, function(error) {
+                    console.error('Error initializing Google Sign-In:', error);
+                });
+            });
+        }
+
+        // Aggiungi questa funzione per gestire gli errori
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            // Qui puoi aggiungere la logica per inviare il token al tuo server
+        }
+
+        // Chiama initGoogleSignIn quando la pagina è caricata
+        window.onload = initGoogleSignIn;
+    </script>
+
+    <!-- Modifica il caricamento dello script di Google -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Aggiungi questo div per il pulsante di Google Sign-In -->
+    <div id="g_id_onload"
+         data-client_id="295762038870-ut81rmgrh1akt460r405m36krcv3j1lv.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+</body>
+</html>
