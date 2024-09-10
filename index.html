@@ -31,6 +31,12 @@
             flex-direction: column;
             align-items: center;
         }
+        .login-icon img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
         .login-icon i {
             font-size: 24px;
             margin-bottom: 5px;
@@ -78,9 +84,10 @@
 </head>
 <body>
     <div class="header">
-        <a href="Register_Login.html" class="login-icon">
-            <i class="fas fa-user-circle"></i>
-            Login/Register
+        <a href="Register_Login.html" class="login-icon" id="loginIcon">
+            <i class="fas fa-user-circle" id="defaultIcon"></i>
+            <img id="userIcon" src="" alt="User Icon" style="display: none;">
+            <span id="loginText">Login/Register</span>
         </a>
         <div class="burger-menu" onclick="toggleMenu()">☰</div>
         <div class="menu-content" id="menuContent">
@@ -112,6 +119,33 @@
                 }
             }
         }
+
+        // Modifica questa funzione per controllare e aggiornare lo stato di login e l'icona
+        function checkLoginStatus() {
+            const userName = localStorage.getItem('userName');
+            const userPicture = localStorage.getItem('userPicture');
+            const loginText = document.getElementById('loginText');
+            const defaultIcon = document.getElementById('defaultIcon');
+            const userIcon = document.getElementById('userIcon');
+
+            if (userName) {
+                loginText.textContent = userName;
+                if (userPicture) {
+                    defaultIcon.style.display = 'none';
+                    userIcon.src = userPicture;
+                    userIcon.style.display = 'inline-block';
+                }
+            } else {
+                loginText.textContent = 'Login/Register';
+                defaultIcon.style.display = 'inline-block';
+                userIcon.style.display = 'none';
+            }
+        }
+
+        // Chiama la funzione al caricamento della pagina
+        window.onload = function() {
+            checkLoginStatus();
+        };
     </script>
 </body>
 </html>

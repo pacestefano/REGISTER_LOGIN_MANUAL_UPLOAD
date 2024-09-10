@@ -315,7 +315,17 @@
         // Aggiungi questa funzione per gestire gli errori
         function handleCredentialResponse(response) {
             console.log("Encoded JWT ID token: " + response.credential);
-            // Qui puoi aggiungere la logica per inviare il token al tuo server
+            // Decodifica il token JWT per ottenere le informazioni dell'utente
+            const payload = JSON.parse(atob(response.credential.split('.')[1]));
+            const userName = payload.name;
+            const userPicture = payload.picture; // Aggiungi questa riga
+            
+            // Salva il nome dell'utente e l'URL dell'immagine del profilo nel localStorage
+            localStorage.setItem('userName', userName);
+            localStorage.setItem('userPicture', userPicture); // Aggiungi questa riga
+            
+            // Reindirizza l'utente alla homepage
+            window.location.href = 'index.html';
         }
 
         // Chiama initGoogleSignIn quando la pagina è caricata
