@@ -229,10 +229,18 @@
             const password = form.querySelector('input[type="password"]').value;
             const isLogin = titoloPrincipale.textContent === 'Bentornato';
 
-            // URL aggiornato del server Flask
-            const baseUrl = 'https://pacestefano.github.io/Register_Login';
-            const endpoint = isLogin ? `${baseUrl}/login` : `${baseUrl}/register`;
+            // Simula una registrazione/login riuscito
+            console.log(`${isLogin ? 'Login' : 'Registrazione'} simulata per: ${email}`);
+            alert(`${isLogin ? 'Login' : 'Registrazione'} riuscita per ${email}`);
+            
+            // Salva le informazioni dell'utente nel localStorage
+            localStorage.setItem('userName', email);
+            
+            // Reindirizza l'utente alla homepage
+            window.location.href = 'index.html';
 
+            // Commenta o rimuovi il codice della richiesta fetch qui sotto
+            /*
             try {
                 const response = await fetch(endpoint, {
                     method: 'POST',
@@ -249,11 +257,11 @@
 
                 const data = await response.json();
                 alert(data.message);
-                // Qui puoi aggiungere la logica per reindirizzare l'utente o aggiornare l'interfaccia
             } catch (error) {
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante la richiesta: ' + error.message);
             }
+            */
         });
 
         // Aggiungi questa funzione per gestire il sign-in di Google

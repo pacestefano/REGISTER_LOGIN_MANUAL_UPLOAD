@@ -32,8 +32,8 @@
             align-items: center;
         }
         .login-icon img {
-            width: 24px;
-            height: 24px;
+            width: 31.2px; /* Aumentato del 30% da 24px */
+            height: 31.2px; /* Aumentato del 30% da 24px */
             border-radius: 50%;
             margin-bottom: 5px;
         }
@@ -51,12 +51,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%; /* Assicura che il contenuto occupi tutta la larghezza */
         }
         .text-box {
             background-color: #333333;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center; /* Aggiunto per centrare tutto il contenuto del text-box */
+        }
+        .text-box h2 {
+            margin: 0 0 20px 0; /* Aggiunto per dare un po' di spazio sotto il titolo */
         }
         .menu-content {
             display: none;
@@ -80,6 +85,40 @@
         .show {
             display: block;
         }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%; /* Assicura che il contenitore occupi tutta la larghezza disponibile */
+        }
+        .action-button {
+            width: 80%; /* Imposta una larghezza fissa per tutti i pulsanti */
+            max-width: 300px; /* Limita la larghezza massima */
+            padding: 15px 0; /* Rimuovi il padding orizzontale e mantieni quello verticale */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, opacity 0.3s;
+            border: none;
+            color: white;
+        }
+        .action-button:hover, .action-button:active {
+            opacity: 0.8;
+        }
+        .instagram-button {
+            background-color: #E1306C; /* Colore di Instagram */
+        }
+        .prompt-button {
+            background-color: #4CAF50; /* Verde */
+        }
+        .button-3 {
+            background-color: #3498db; /* Blu */
+        }
     </style>
 </head>
 <body>
@@ -99,6 +138,11 @@
     <div class="content">
         <div class="text-box">
             <h2>Home_Page_TEST</h2>
+            <div class="button-container">
+                <button class="action-button instagram-button" onclick="createInstagramPost()">Crea un Post per Instagram con l'AI</button>
+                <button class="action-button prompt-button" onclick="improvePrompt()">Migliora il tuo prompt</button>
+                <button class="action-button button-3" onclick="button3Action()">Pulsante 3</button>
+            </div>
         </div>
     </div>
 
@@ -146,6 +190,21 @@
         window.onload = function() {
             checkLoginStatus();
         };
+
+        function createInstagramPost() {
+            alert("Funzione per creare un post Instagram con l'AI");
+            // Implementa qui la logica per creare un post Instagram
+        }
+
+        function improvePrompt() {
+            alert("Funzione per migliorare il prompt");
+            // Implementa qui la logica per migliorare il prompt
+        }
+
+        function button3Action() {
+            alert("Azione del Pulsante 3");
+            // Implementa qui la logica per il Pulsante 3
+        }
     </script>
 </body>
 </html>
