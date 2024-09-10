@@ -49,11 +49,14 @@
         }
         .simbolo-marchio {
             margin-bottom: 30px;
+            background-color: transparent; /* Assicura che lo sfondo del contenitore sia trasparente */
         }
         .simbolo-marchio img {
-            width: 80%; /* Ridimensiona l'immagine all'80% della larghezza del contenitore */
-            height: auto; /* Mantiene le proporzioni dell'immagine */
-            max-width: 100px; /* Imposta una larghezza massima se necessario */
+            width: 80%;
+            height: auto;
+            max-width: 100px;
+            object-fit: contain; /* Mantiene le proporzioni dell'immagine */
+            background-color: transparent; /* Assicura che lo sfondo dell'immagine sia trasparente */
         }
         .titolo-principale {
             font-size: 24px;
@@ -61,6 +64,7 @@
         }
         .campo-inserimento, .pulsante-registrazione, .pulsante-social {
             width: 100%;
+            box-sizing: border-box; /* Aggiunto per includere padding e bordo nella larghezza */
             padding: 12px;
             margin-bottom: 15px;
             border: none;
@@ -131,6 +135,21 @@
         .nascosto {
             display: none;
         }
+        .torna-homepage {
+            margin-top: 20px;
+        }
+        .pulsante-homepage {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #444444;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .pulsante-homepage:hover {
+            background-color: #555555;
+        }
     </style>
 </head>
 <body>
@@ -149,21 +168,23 @@
             <button type="submit" id="pulsante-azione" class="pulsante-registrazione">Registrati con Email</button>
         </form>
         <div class="separatore-opzioni">OPPURE</div>
-        <button class="pulsante-social">
-            <img src="icona_Google_nero.jpeg" alt="Logo Google" width="39" height="39" class="icona-social">
-            Continua con Google
-        </button>
-        <div id="g_id_onload"
-             data-client_id="295762038870-ut81rmgrh1akt460r405m36krcv3j1lv.apps.googleusercontent.com"
-             data-callback="handleCredentialResponse">
+        <div id="google-signin-top" style="margin-bottom: 15px;">
+            <div id="g_id_onload"
+                 data-client_id="295762038870-ut81rmgrh1akt460r405m36krcv3j1lv.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
         </div>
-        <div class="g_id_signin" data-type="standard"></div>
         <button onclick="signOut()" class="pulsante-registrazione">Sign out</button>
         <div class="piè-di-pagina">
             <a href="#" class="link-piè-di-pagina">Termini di Servizio</a> | <a href="#" class="link-piè-di-pagina">Informativa sulla Privacy</a>
             <div style="margin-top: 10px;">
                 <a href="#" id="link-password-dimenticata" class="link-piè-di-pagina">Password dimenticata?</a>
             </div>
+        </div>
+        <!-- Aggiungi questo nuovo div per il box "Torna alla HomePage" -->
+        <div class="torna-homepage">
+            <a href="index.html" class="pulsante-homepage">Torna alla HomePage</a>
         </div>
     </div>
 
@@ -303,13 +324,6 @@
 
     <!-- Modifica il caricamento dello script di Google -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-    <!-- Aggiungi questo div per il pulsante di Google Sign-In -->
-    <div id="g_id_onload"
-         data-client_id="295762038870-ut81rmgrh1akt460r405m36krcv3j1lv.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div>
 
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 </body>

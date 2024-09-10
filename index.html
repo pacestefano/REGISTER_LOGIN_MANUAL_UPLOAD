@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .header {
+            background-color: #222222;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .login-icon {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px; /* Ridotto da 18px a 14px */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .login-icon i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .burger-menu {
+            font-size: 36px; /* Aumentato del 50% da 24px a 36px */
+            cursor: pointer;
+            color: #ffffff;
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .text-box {
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .menu-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background-color: #333333;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .menu-content a {
+            color: #ffffff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .menu-content a:hover {
+            background-color: #444444;
+        }
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="Register_Login.html" class="login-icon">
+            <i class="fas fa-user-circle"></i>
+            Login/Register
+        </a>
+        <div class="burger-menu" onclick="toggleMenu()">☰</div>
+        <div class="menu-content" id="menuContent">
+            <a href="#">Profilo</a>
+            <a href="Register_Login.html">Registrati</a>
+            <a href="Register_Login.html">Effettua il Login</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="text-box">
+            <h2>Home_Page_TEST</h2>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("menuContent").classList.toggle("show");
+        }
+
+        // Chiudi il menu se l'utente clicca fuori da esso
+        window.onclick = function(event) {
+            if (!event.target.matches('.burger-menu')) {
+                var dropdowns = document.getElementsByClassName("menu-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
